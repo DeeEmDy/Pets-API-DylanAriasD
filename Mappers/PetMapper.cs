@@ -14,8 +14,21 @@ namespace api.Mappers
         {
             return new PetDto
             {
+                Id = pet.Id,
                 Name = pet.Name,
-                Animal = pet.Animal
+                Animal = pet.Animal,
+                UserId = pet.UserId,
+                User = pet.User?.ToDto() //Para que el usuario sea visible en el response si asi se desea.
+            };
+        }
+
+        public static Pet ToPetFromCreateDto(this CreatePetRequestDto petDto)
+        {
+            return new Pet
+            {
+                Name = petDto.Name,
+                Animal = petDto.Animal,
+                UserId = petDto.UserId
             };
         }
     }

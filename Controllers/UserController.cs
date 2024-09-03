@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using api.Mappers;
 using api.Dtos.User;
 
+
 namespace api.Controllers
 {
     [Route("api/user")]
@@ -76,6 +77,44 @@ namespace api.Controllers
 
             await _context.SaveChangesAsync(); //Guardar los cambios en la base de datos.
             return NoContent(); //Devolver un 204 No Content.
+        }
+
+        //Método para poder asignar un Pet a un respectivo usuario.
+        [HttpPost]
+        [Route("{userId}/assign-petToUser/{petId}")]
+        public async Task<IActionResult> AssignPetToUser([FromRoute] int userId, [FromRoute] int petId){
+            var user = await _context.Users.Include(user => user.Pets).FirstOrDefaultAsync(user => user.Id == userId);
+            if (user == null){ //Si el usuario no existe, devolver un error 404.
+                return NotFound(); //Devolver un error 404.
+            }
+            var pet = await _context.Pets.FirstOrDefaultAsync(pet => pet.Id == petId);
+            if (pet == null){ //Si el pet no existe, devolver un error 404.
+                return NotFound(); //Pet NO ENCONTRADA: Devolver un error 404.
+            }
+            user.Pets.Add(pet); //Agregar el pet al usuario.
+            await _context.SaveChangesAsync(); //Guardar los cambios en la base de datos.
+            return NoContent(); //Devolver un 204 No Content.
+        }
+
+        /*Método para crear un registro de usuario con N cantidad de Pets en el mismo request body,
+        estos pets se deben de guardar en la base de datos y asignarse al usuario*/
+        [HttpPost]
+        [Route("create-user-with-pets")]
+        public async Task<IActionResult> CreateUserWithPets([FromBody] CreateUserWithPetsRequestDto userWithPetsDto)
+        {
+            var userModel = userWithPetsDto.ToUserFromCreateWithPetsDto(); // Cambiado aquí
+            await _context.Users.AddAsync(userModel);
+            await _context.SaveChangesAsync();
+
+            foreach (var petDto in userWithPetsDto.Pets)
+            {
+                var petModel = petDto.ToPetFromCreateDto();
+                petModel.UserId = userModel.Id;
+                await _context.Pets.AddAsync(petModel);
+            }
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(getById), new { id = userModel.Id }, userModel.ToDto()); // Cambiado aquí
         }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+F+OGDUM634=",
+  "dgSpecHash": "9vgzloBahMs=",
   "success": true,
-  "projectFilePath": "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\Clase 3\\PETS-API\\api\\api.csproj",
+  "projectFilePath": "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\ProyectoPetsApi_RepositorioGitHub\\Pets-API-DylanAriasD\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dy-la\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\dy-la\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
