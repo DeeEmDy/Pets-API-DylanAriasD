@@ -32,7 +32,7 @@ namespace api.Controllers
             var petsDto = pets.Select(pet => pet.ToDto());
             return Ok(petsDto);
         }
-
+        
         [HttpGet("{id}")] //Ejemplo prueba: http://localhost:5034/api/pet/1
 
         //Método para obtener una mascota por en específico por su ID.

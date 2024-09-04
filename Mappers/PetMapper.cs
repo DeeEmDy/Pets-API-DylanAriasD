@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Dtos.PetDtos;
+using api.Dtos.UserDtos;
 using api.Models;
 
 
@@ -16,8 +17,15 @@ namespace api.Mappers
             {
                 Id = pet.Id,
                 Name = pet.Name,
-                Animal = pet.Animal,
-                UserId = pet.UserId ?? 0, // Maneja la conversión de nullable a no nullable
+                Animal = pet.Animal, 
+                UserId = pet.UserId,
+                User = pet.User != null ? new UserDto
+                {
+                    Id = pet.User.Id,
+                    FirstName = pet.User.FirstName,
+                    LastName = pet.User.LastName,
+                    Age = pet.User.Age
+                } : null
             };
         }
 
