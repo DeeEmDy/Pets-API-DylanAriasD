@@ -11,6 +11,7 @@ namespace api.Mappers
 {
     public static class PetMapper
     {
+        // Método para convertir Pet a PetDto
         public static PetDto ToDto(this Pet pet)
         {
             return new PetDto
@@ -29,6 +30,7 @@ namespace api.Mappers
             };
         }
 
+        // Método para convertir CreatePetRequestDto a Pet
         public static Pet ToPetFromCreateDto(this CreatePetRequestDto createPetRequest)
         {
             return new Pet
@@ -36,6 +38,17 @@ namespace api.Mappers
                 Name = createPetRequest.Name,
                 Animal = createPetRequest.Animal,
                 UserId = createPetRequest.UserId,
+            };
+        }
+
+        // Método para convertir CreatePetRequestForUsersNPets a Pet
+        public static Pet ToPetFromCreateDto(this CreatePetRequestForUsersNPets createPetRequest)
+        {
+            return new Pet
+            {
+                Name = createPetRequest.Name,
+                Animal = createPetRequest.Animal,
+                // El campo UserId se omite aquí ya que el usuario se asocia en el controlador al crear la el usuario primero y luego asociarle la mascota.
             };
         }
     }

@@ -38,5 +38,18 @@ namespace api.Mappers
                 Pets = new List<Pet>() // Inicialmente vacío, las mascotas se agregan en el controlador
             };
         }
+
+        // Método para convertir CreateUserNPetAssociated a User
+        public static User ToUserFromCreateDto(this CreateUserNPetAssociated createUserWithPetsRequest)
+        {
+            return new User
+            {
+                FirstName = createUserWithPetsRequest.FirstName,
+                LastName = createUserWithPetsRequest.LastName,
+                Age = createUserWithPetsRequest.Age,
+                Pets = new List<Pet>() // Inicialmente vacío, las mascotas se agregan en el controlador
+            };
+        }
+
     }
 }

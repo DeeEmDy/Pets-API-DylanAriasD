@@ -145,5 +145,31 @@ namespace api.Controllers
             // Retornar el usuario creado
             return CreatedAtAction(nameof(getById), new { id = userModel.Id }, userModel.ToDto());
         }
+
+        [HttpPost]
+        [Route("create-user-and-pets-associatedToUser")]
+        public async Task<IActionResult> CreateUserAndPetsAssociatedToUser([FromBody] CreateUserNPetAssociated userDto)
+        {
+            // Convertir el DTO a un modelo de usuario
+            var userModel = userDto.ToUserFromCreateDto();
+
+            // Agregar el usuario a la base de datos
+            await _context.Users.AddAsync(userModel);
+            await _context.SaveChangesAsync(); // Guardar cambios para obtener el ID del usuario
+
+            // Agregar las mascotas al usuario
+            foreach (var petDto in userDto.Pets)
+            {
+                var petModel = petDto.ToPetFromCreateDto(); // Convertir el DTO de mascota a un modelo de mascota
+                petModel.UserId = userModel.Id; // Asignar el ID del usuario al modelo de mascota
+                await _context.Pets.AddAsync(petModel); // Agregar la mascota a la base de datos
+            }
+
+            // Guardar los cambios finales
+            await _context.SaveChangesAsync();
+
+            // Retornar el usuario creado
+            return CreatedAtAction(nameof(getById), new { id = userModel.Id }, userModel.ToDto());
+        }
     }
 }
