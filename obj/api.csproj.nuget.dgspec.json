@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\Clase 3\\PETS-API\\api\\api.csproj": {}
+    "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\ProyectoPetsApi_RepositorioGitHub\\Pets-API-DylanAriasD\\api.csproj": {}
   },
   "projects": {
-    "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\Clase 3\\PETS-API\\api\\api.csproj": {
+    "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\ProyectoPetsApi_RepositorioGitHub\\Pets-API-DylanAriasD\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\Clase 3\\PETS-API\\api\\api.csproj",
+        "projectUniqueName": "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\ProyectoPetsApi_RepositorioGitHub\\Pets-API-DylanAriasD\\api.csproj",
         "projectName": "api",
-        "projectPath": "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\Clase 3\\PETS-API\\api\\api.csproj",
+        "projectPath": "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\ProyectoPetsApi_RepositorioGitHub\\Pets-API-DylanAriasD\\api.csproj",
         "packagesPath": "C:\\Users\\dy-la\\.nuget\\packages\\",
-        "outputPath": "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\Clase 3\\PETS-API\\api\\obj\\",
+        "outputPath": "D:\\IMPORTANTES UNA Dylan A\\IMPORTANTES UNA Dylan A\\Ciclo II Dylan Arias D 2024\\Optativa-PrograWeb\\ProyectoPetsApi_RepositorioGitHub\\Pets-API-DylanAriasD\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

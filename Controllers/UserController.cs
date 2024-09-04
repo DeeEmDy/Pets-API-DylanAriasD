@@ -7,7 +7,7 @@ using api.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using api.Mappers;
-using api.Dtos.User;
+using api.Dtos.UserDtos;
 
 namespace api.Controllers
 {
