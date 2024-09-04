@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using api.Mappers;
 using api.Dtos.UserDtos;
 
+
 namespace api.Controllers
 {
     [Route("api/user")]
@@ -76,6 +77,73 @@ namespace api.Controllers
 
             await _context.SaveChangesAsync(); //Guardar los cambios en la base de datos.
             return NoContent(); //Devolver un 204 No Content.
+        }
+
+        //Método para asignar una mascota a un usuario.
+        [HttpPost]
+        [Route("{userId}/assign-pet-toUser/{petId}")] //Se recibe el ID del usuario y el ID de la mascota.
+        public async Task<IActionResult> AssignPetToUser([FromRoute] int userId, [FromRoute] int petId){
+            var user = await _context.Users.Include(user => user.Pets).FirstOrDefaultAsync(user => user.Id == userId);
+            if (user == null){ //Si el usuario no existe, devolver un error 404.
+                return NotFound(); //Devolver un error 404.
+            }
+            var pet = await _context.Pets.FirstOrDefaultAsync(pet => pet.Id == petId);
+            if (pet == null){ //Si la mascota no existe, devolver un error 404.
+                return NotFound(); //Devolver un error 404.
+            }
+            user.Pets.Add(pet); //Agregar la mascota al usuario.
+            await _context.SaveChangesAsync(); //Guardar los cambios en la base de datos.
+            return Ok(user.ToDto()); //Devolver un 200 Ok y la información del usuario.
+        }
+
+        //Método para desasignar una mascota a un usuario.
+        [HttpDelete]
+        [Route("{userId}/unassign-pet-toUser/{petId}")] //Se recibe el ID del usuario y el ID de la mascota.
+        public async Task<IActionResult> UnassignPetToUser([FromRoute] int userId, [FromRoute] int petId){
+            var user = await _context.Users.Include(user => user.Pets).FirstOrDefaultAsync(user => user.Id == userId);
+            if (user == null){ //Si el usuario no existe, devolver un error 404.
+                return NotFound(); //Devolver un error 404.
+            }
+            var pet = await _context.Pets.FirstOrDefaultAsync(pet => pet.Id == petId);
+            if (pet == null){ //Si la mascota no existe, devolver un error 404.
+                return NotFound(); //Devolver un error 404.
+            }
+            user.Pets.Remove(pet); //Eliminar la mascota del usuario.
+            await _context.SaveChangesAsync(); //Guardar los cambios en la base de datos.
+            return Ok(user.ToDto()); //Devolver un 200 Ok y la información del usuario.
+        }
+
+        [HttpPost]
+        [Route("create-user-with-pets")]
+        public async Task<IActionResult> CreateUserWithPets([FromBody] CreateUserWithPetsRequest userDto)
+        {
+            // Convertir el DTO a un modelo de usuario
+            var userModel = userDto.ToUserFromCreateDto(); 
+
+            // Agregar el usuario a la base de datos
+            await _context.Users.AddAsync(userModel);
+            await _context.SaveChangesAsync(); // Guardar cambios para obtener el ID del usuario
+
+            // Buscar cada mascota por ID y agregarla al usuario
+            foreach (var petId in userDto.PetIds)
+            {
+                var existingPet = await _context.Pets.FindAsync(petId);
+                if (existingPet != null)
+                {
+                    userModel.Pets.Add(existingPet); // Asignar la mascota existente al usuario
+                }
+                else
+                {
+                    // Si el ID de mascota no existe, se puede manejar el error según el caso
+                    return BadRequest($"La mascota con ID {petId} no existe.");
+                }
+            }
+
+            // Guardar los cambios finales
+            await _context.SaveChangesAsync(); 
+
+            // Retornar el usuario creado
+            return CreatedAtAction(nameof(getById), new { id = userModel.Id }, userModel.ToDto());
         }
     }
 }

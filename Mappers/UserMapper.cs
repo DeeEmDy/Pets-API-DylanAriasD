@@ -19,11 +19,23 @@ namespace api.Mappers
             };
         }
 
-        public static User ToUserFromCreateDto(this CreateUserRequestDto createUserRequest){ //Convertir un dto a un modelo.
+        // Método para convertir CreateUserRequestDto a User
+        public static User ToUserFromCreateDto(this CreateUserRequestDto createUserRequest){ 
             return new User{
                 FirstName = createUserRequest.FirstName,
                 LastName = createUserRequest.LastName,
-                Age = createUserRequest.Age
+                Age = createUserRequest.Age,
+                Pets = new List<Pet>() //
+            };
+        }
+
+        // Nueva sobrecarga del método para CreateUserWithPetsRequest
+        public static User ToUserFromCreateDto(this CreateUserWithPetsRequest createUserWithPetsRequest){ 
+            return new User{
+                FirstName = createUserWithPetsRequest.FirstName,
+                LastName = createUserWithPetsRequest.LastName,
+                Age = createUserWithPetsRequest.Age,
+                Pets = new List<Pet>() // Inicialmente vacío, las mascotas se agregan en el controlador
             };
         }
     }
